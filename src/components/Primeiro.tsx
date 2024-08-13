@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View, TextInput } from "react-native";
+import React, { useState } from "react";
+import { Button, StyleSheet, Text, View, TextInput, Alert } from "react-native";
 import axios from "axios";
 
 function Primeiro() {
@@ -8,12 +8,25 @@ function Primeiro() {
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
 
-    const handlePost = () => {
-        axios.post('http://10.0.2.2:3000/users/createUsers', {
-            name: name,
-            email: email,
-            password: password
-        })
+    const handlePost = async () => {
+        try {
+            const response = await axios.post('http://10.0.2.2:3000/users/createUsers', {
+                name: name,
+                email: email,
+                password: password
+            })
+            if (response.status === 201) {
+                Alert.alert('Sucesso', 'Cadastro realizado com sucesso!');
+                setEmail('');
+                setName('');
+                setPassword('');
+            } else {
+                Alert.alert('Erro', 'Ocorreu um erro inesperado. Tente novamente.');
+            }
+
+        } catch (error) {
+            Alert.alert('Erro', 'Ocorreu um erro ao tentar cadastrar. Verifique seus dados e tente novamente.');
+        }
     }
     return (
         <View style={styles.container}>
