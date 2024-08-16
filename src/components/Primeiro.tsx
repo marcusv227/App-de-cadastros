@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View, TextInput, Alert } from "react-native";
+import { Button, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity } from "react-native";
 import axios from "axios";
 
 function Primeiro() {
@@ -104,18 +104,15 @@ function Primeiro() {
                     />
                     {touched.password && errors.password ? <Text style={styles.error}>{errors.password}</Text> : null}
                 </View>
-                <View style={styles.button}>
-                    <Button title="Cadastrar" onPress={handlePost} />
-                </View>
+                <TouchableOpacity style={styles.registerButton}>
+                    <Text style={styles.registerButtonText} onPress={handlePost}> Cadastrar </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        alignItems: 'center'
-    },
     text: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -143,7 +140,18 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 14,
         marginBottom: 8,
-    }
+    },
+    registerButton: {
+        backgroundColor: '#007BFF',
+        padding: 10,
+        borderRadius: 4,
+        marginTop: 8
+    },
+    registerButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
 });
 
 export default Primeiro;
